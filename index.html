@@ -1,0 +1,145 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MVT Selector Tool</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: rebeccapurple;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Main layout */
+    .main-layout {
+        width: 90%;
+        margin: 40px auto;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    /* Side image column */
+    .side-images {
+        width: 12%;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .side-images img {
+        width: 100%;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 10px;
+        border: 2px solid white;
+    }
+
+    /* Main box */
+    .box {
+        width: 60%;
+        background: turquoise;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+        text-align: center;
+        color: #3b3b9f;
+    }
+    textarea {
+        width: 100%;
+        height: 120px;
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid #777;
+        font-size: 16px;
+    }
+    button {
+        padding: 12px 25px;
+        background: #3b3b9f;
+        color: rgb(219,214,214);
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 17px;
+        display: block;
+        margin: 20px auto;
+    }
+    button:hover {
+        background: #27277a;
+    }
+    #output {
+        margin-top: 20px;
+        padding: 20px;
+        background: white;
+        border-left: 5px solid #3b3b9f;
+        border-radius: 8px;
+        font-size: 18px;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="main-layout">
+
+    <!-- LEFT IMAGES -->
+    <div class="side-images">
+        <img src="aeroplane.png">
+        <img src="voltage.png">
+        <img src="car.png">
+        <img src="temp.png">
+    </div>
+
+    <!-- CENTER BOX -->
+    <div class="box">
+        <h1>Which MVT Should I Use?</h1>
+        <p>Enter your question below, and the tool will detect whether to use Rolle’s, LMVT, or Cauchy MVT:</p>
+
+        <textarea id="question" placeholder="Paste your calculus question here..."></textarea>
+
+        <button onclick="findMVT()">Find MVT</button>
+
+        <div id="output"></div>
+    </div>
+
+    <!-- RIGHT IMAGES -->
+    <div class="side-images">
+        <img src="lmvt.png">
+        <img src="rmvt.png">
+        <img src="cmvt.png">
+        
+    </div>
+
+</div>
+
+<script>
+function findMVT() {
+    let q = document.getElementById("question").value.toLowerCase();
+    let out = document.getElementById("output");
+
+    if (q.trim() === "") {
+        out.innerHTML = "<b>Please enter a question.</b>";
+        return;
+    }
+
+    if (q.includes("equal") || q.includes("f(a)=f(b)") || q.includes("show derivative is zero")) {
+        out.innerHTML = `<b>Recommended:</b> <span style='color:#27277a;font-weight:bold;'>Rolle’s Theorem</span>`;
+        return;
+    }
+
+    if (q.includes("two functions") || q.includes("f and g") || q.includes("ratio") || q.includes("g'(c)")) {
+        out.innerHTML = `<b>Recommended:</b> <span style='color:#27277a;font-weight:bold;'>Cauchy MVT</span>`;
+        return;
+    }
+
+    out.innerHTML = `<b>Recommended:</b> <span style='color:#27277a;font-weight:bold;'>Lagrange MVT</span>`;
+}
+</script>
+
+</body>
+</html>
